@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:donut_app/tabs/idli_tab.dart';
-import 'package:donut_app/tabs/dosa_tab.dart';
 import 'package:donut_app/tabs/parotta_tab.dart';
 import 'package:donut_app/tabs/jucie_tab.dart';
 import 'package:donut_app/tabs/briyani_tab.dart';
 import 'package:donut_app/util/my_tab.dart';
+
+import '../tabs/dosa_tab.dart';
 
 class BottomDrawer extends StatelessWidget {
   final Widget child;
@@ -162,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
-            "SambarSwift",
+            "SaambarSwift",
             style: TextStyle(
               fontWeight: FontWeight.bold, // Make the text bold
               fontSize: 28,
@@ -241,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: TabBarView(
                 children: [
                   // donut page
-                  dosaTab(),
+                  DosaTab(),
 
                   // burger page
                   idliTab(),

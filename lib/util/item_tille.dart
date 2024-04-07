@@ -3,102 +3,97 @@ import 'package:flutter/material.dart';
 class ItemTile extends StatelessWidget {
   final String itemFlavor;
   final String itemPrice;
-  final itemColor;
+  final Color itemColor;
   final String imageName;
 
-  final double borderRadius = 12;
-
   const ItemTile({
-    super.key,
+    Key? key,
     required this.itemFlavor,
     required this.itemPrice,
-    this.itemColor,
+    required this.itemColor,
     required this.imageName,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
+    return Card( // Wrap with Card widget
+      color: itemColor.withOpacity(0.7), // Set background color
+      elevation: 4, // Add elevation for shadow effect
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: Container(
-        decoration: BoxDecoration(
-          color: itemColor[50],
-          borderRadius: BorderRadius.circular(12),
-        ),
+        padding: EdgeInsets.all(8),
         child: Column(
           children: [
-            // price
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            Stack(
               children: [
+                // Item image
                 Container(
+                  width: double.infinity,
+                  height: 120, // Adjust the height as needed
                   decoration: BoxDecoration(
-                    color: itemColor[100],
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(borderRadius),
-                      topRight: Radius.circular(borderRadius),
+                    borderRadius: BorderRadius.circular(12),
+                    image: DecorationImage(
+                      image: NetworkImage(imageName),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  padding: EdgeInsets.all(borderRadius),
-                  child: Text(
-                    '\$' + itemPrice,
-                    style: TextStyle(
-                      color: itemColor[800],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                ),
+                // Price overlay
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: itemColor.withOpacity(0.7),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      '₹' + itemPrice,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
 
-            // item image
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 36,
-                vertical: 16,
-              ),
-              child: Image.asset(
-                imageName,
-              ),
-            ),
-
-            // item flavor
-            Text(
-              itemFlavor,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            Text(
-              "Dunkins",
-              style: TextStyle(
-                color: Colors.grey[600],
-              ),
-            ),
-
-            const SizedBox(height: 12),
-
-            // love icon + add button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // love icon
-                  Icon(
-                    Icons.favorite_outline,
-                    color: Colors.pink,
+            SizedBox(height: 8,),
+            // Item details
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  itemFlavor,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white, // Text color matches background
                   ),
-              
-                  // add button
-                  Icon(
-                    Icons.add,
-                    color: Colors.grey[900],
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.favorite_outline,
+                      color: Colors.white,
+                    ),
+                    Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
